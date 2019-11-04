@@ -7,10 +7,6 @@ describe 'As a logged in Merchant (employee/admin)' do
     @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
     @merchant_employee = @meg.users.create!(
       name: 'Bob',
-      address: '123 Main',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_233,
       email: 'bob@email.com',
       password: 'secure',
       role: 1
@@ -42,10 +38,6 @@ describe 'As a logged in Merchant (employee/admin)' do
   it 'I see a list of pending orders with items I sell' do
     user = User.create!(
       name: 'User_bob',
-      address: '123 Main',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_233,
       email: 'user@email.com',
       password: 'secure'
     )

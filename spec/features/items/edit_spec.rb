@@ -8,7 +8,7 @@ RSpec.describe 'As a Merchant or Admin' do
       before(:each) do
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
         @tire = @meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
-        @merchant_admin = @meg.users.create!(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'bob@email.com', password: 'secure', role: 2)
+        @merchant_admin = @meg.users.create!(name: 'Bob', email: 'bob@email.com', password: 'secure', role: 2)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_admin)
 

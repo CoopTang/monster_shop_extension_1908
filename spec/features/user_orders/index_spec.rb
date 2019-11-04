@@ -13,10 +13,6 @@ RSpec.describe 'As a registered user' do
 
       user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )

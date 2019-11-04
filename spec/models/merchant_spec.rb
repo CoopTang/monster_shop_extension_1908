@@ -27,10 +27,6 @@ describe Merchant, type: :model do
 
       user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
@@ -56,20 +52,12 @@ describe Merchant, type: :model do
       chain = @meg.items.create(name: 'Chain', description: "It'll never break!", price: 40, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 22)
       user_1 = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
 
       user_2 = User.create(
         name: 'Dan',
-        address: '123 Main',
-        city: 'Boulder',
-        state: 'CO',
-        zip: 80_303,
         email: 'Dan@email.com',
         password: 'secure',
         enabled?: false
@@ -93,10 +81,6 @@ describe Merchant, type: :model do
       bone = brian.items.create(name: 'bone', description: "It'll never break!", price: 40, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 22)
       user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
@@ -127,20 +111,12 @@ describe Merchant, type: :model do
 
       user_1 = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
 
       user_2 = User.create(
         name: 'Dan',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'Dan@email.com',
         password: 'secure',
         enabled?: false
@@ -174,20 +150,12 @@ describe Merchant, type: :model do
 
       user_1 = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
 
       user_2 = User.create(
         name: 'Dan',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'Dan@email.com',
         password: 'secure',
         enabled?: false

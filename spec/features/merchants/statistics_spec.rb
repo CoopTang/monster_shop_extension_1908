@@ -19,10 +19,6 @@ RSpec.describe 'merchant show page', type: :feature do
       @dog_bone = @brian.items.create(name: 'Dog Bone', description: "They'll love it!", price: 20, image: 'https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg', active?: false, inventory: 21)
       @user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )

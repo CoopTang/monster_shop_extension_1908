@@ -15,10 +15,6 @@ describe 'Items Index Page' do
       @seat = meg.items.create(name: 'Seat', description: 'It works fast!', price: 25, image: 'https://images-na.ssl-images-amazon.com/images/I/71Wa47HMBmL._SY550_.jpg', inventory: 15)
 
       user = User.create!(name: 'Bob',
-                          address: '123 Main',
-                          city: 'Denver',
-                          state: 'CO',
-                          zip: 80_233,
                           email: 'bob@email.com',
                           password: 'secure')
 

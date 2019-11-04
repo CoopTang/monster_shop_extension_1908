@@ -14,10 +14,6 @@ describe 'As a logged in Merchant (employee/admin)' do
 
     @merchant_employee = @meg.users.create!(
       name: 'Other Bob',
-      address: '123 Bike Rd.',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_203,
       email: 'otherbob@email.com',
       password: 'secure',
       role: 1
@@ -27,10 +23,6 @@ describe 'As a logged in Merchant (employee/admin)' do
 
     @user = User.create!(
       name: 'Bob',
-      address: '123 Main',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_233,
       email: '@user@email.com',
       password: 'secure'
     )
@@ -48,11 +40,11 @@ describe 'As a logged in Merchant (employee/admin)' do
   it 'I only see the items in the order that are being purchased from my merchant' do
     expect(current_path).to eq("/merchant/orders/#{@order.id}")
 
-    expect(page).to have_content(@user.name)
-    expect(page).to have_content(@user.address)
-    expect(page).to have_content(@user.city)
-    expect(page).to have_content(@user.state)
-    expect(page).to have_content(@user.zip)
+    expect(page).to have_content(@order.name)
+    expect(page).to have_content(@order.address)
+    expect(page).to have_content(@order.city)
+    expect(page).to have_content(@order.state)
+    expect(page).to have_content(@order.zip)
 
     within "#item-#{@pump.id}" do
       expect(page).to have_content(@pump.name)

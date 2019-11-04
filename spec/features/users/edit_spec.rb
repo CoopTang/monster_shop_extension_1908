@@ -5,14 +5,16 @@ require 'rails_helper'
 RSpec.describe 'As a registered user' do
   describe 'when I visit the edit profile data form' do
     before :each do
-      @user = User.create(
+      user = User.create(
         name: 'Bob',
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+      user.addresses.create(
         address: '123 Main',
         city: 'Denver',
         state: 'CO',
-        zip: 80_233,
-        email: 'bob@email.com',
-        password: 'secure'
+        zip: 80_233
       )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
