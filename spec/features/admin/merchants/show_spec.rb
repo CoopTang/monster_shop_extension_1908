@@ -5,10 +5,6 @@ RSpec.describe 'As an Admin User' do
     it 'clicking a merchant name redirects to an admin merchant show page idential to that merchants dashboard' do
       user = User.create!(
         name: 'User_bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'user@email.com',
         password: 'secure'
       )
@@ -23,10 +19,6 @@ RSpec.describe 'As an Admin User' do
 
       site_admin = User.create!(
         name: 'Site Admin',
-        address: '123 First',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'site_admin@user.com',
         password: 'secure',
         role: 3)
