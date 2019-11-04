@@ -15,10 +15,6 @@ RSpec.describe 'Order Update' do
 
       @merchant_employee = @meg.users.create!(
         name: 'Other Bob',
-        address: '123 Bike Rd.',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_203,
         email: 'otherbob@email.com',
         password: 'secure',
         role: 1
@@ -28,10 +24,6 @@ RSpec.describe 'Order Update' do
 
       @user = User.create!(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: '@user@email.com',
         password: 'secure'
       )

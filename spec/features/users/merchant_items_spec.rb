@@ -39,7 +39,7 @@ RSpec.describe 'As a Merchant Admin' do
   end
 
   describe 'on my items page' do
-    it 'I see a link to deactivate an active item' do
+    xit 'I see a link to deactivate an active item' do
       within "#item-#{@pump.id}" do
         expect(page).to have_content('Inactive')
         expect(page).to_not have_link('Deactivate Item')
@@ -60,7 +60,7 @@ RSpec.describe 'As a Merchant Admin' do
       expect(@tire.active?).to eq(false)
     end
 
-    it 'I see a link to activate an inactive item' do
+    xit 'I see a link to activate an inactive item' do
       within "#item-#{@tire.id}" do
         expect(page).to have_content('Active')
         expect(page).to_not have_link('Activate Item')
@@ -81,7 +81,7 @@ RSpec.describe 'As a Merchant Admin' do
       expect(@pump.active?).to eq(true)
     end
 
-    it 'I see a link to delete an item that has never been ordered' do
+    xit 'I see a link to delete an item that has never been ordered' do
       within "#item-#{@tire.id}" do
         expect(page).to_not have_link('Delete Item')
       end

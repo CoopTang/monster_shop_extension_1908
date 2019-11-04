@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'rails_helper'
 
 RSpec.describe('New Order Page') do
   describe 'When I check out from my cart' do
@@ -11,10 +12,6 @@ RSpec.describe('New Order Page') do
 
       @user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )

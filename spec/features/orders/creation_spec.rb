@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+require 'rails_helper'
 
-RSpec.describe('Order Creation') do
+RSpec.describe 'Order Creation' do
   describe 'When I check out from my cart' do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80_203)
@@ -11,10 +12,6 @@ RSpec.describe('Order Creation') do
 
       @user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )

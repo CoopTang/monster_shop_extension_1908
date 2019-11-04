@@ -4,10 +4,10 @@ RSpec.describe 'As an admin user' do
   describe 'when I click the "Users" link in the nav' do
     before :each do
       @dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
-      @user_1 = User.create(name: 'User 1', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, email: 'user.com', password: 'secure', role: 0)
-      @dog_employee = @dog_shop.users.create(name: 'Dog Employee', address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210, email: 'dog_employee@user.com', password: 'secure', role: 1, enabled?: false)
-      @dog_admin = @dog_shop.users.create(name: 'Dog Admin', address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210, email: 'dog_admin@user.com', password: 'secure', role: 2, enabled?: false)
-      @site_admin = User.create(name: 'Site Admin', address: '123 First', city: 'Denver', state: 'CO', zip: 80_233, email: 'site_admin@user.com', password: 'secure', role: 3)
+      @user_1 = User.create(name: 'User 1', email: 'user.com', password: 'secure', role: 0)
+      @dog_employee = @dog_shop.users.create(name: 'Dog Employee', email: 'dog_employee@user.com', password: 'secure', role: 1, enabled?: false)
+      @dog_admin = @dog_shop.users.create(name: 'Dog Admin', email: 'dog_admin@user.com', password: 'secure', role: 2, enabled?: false)
+      @site_admin = User.create(name: 'Site Admin', email: 'site_admin@user.com', password: 'secure', role: 3)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@site_admin)
 

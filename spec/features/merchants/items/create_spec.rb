@@ -9,10 +9,6 @@ RSpec.describe 'As a merchant' do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
         merchant_admin = meg.users.create!(
           name: 'Bob',
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233,
           email: 'bob@email.com',
           password: 'secure',
           role: 2
@@ -54,10 +50,6 @@ RSpec.describe 'As a merchant' do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
         merchant_admin = meg.users.create!(
           name: 'Bob',
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233,
           email: 'bob@email.com',
           password: 'secure',
           role: 2
@@ -94,10 +86,6 @@ RSpec.describe 'As a merchant' do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
         merchant_admin = meg.users.create!(
           name: 'Bob',
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233,
           email: 'bob@email.com',
           password: 'secure',
           role: 2
@@ -126,10 +114,6 @@ RSpec.describe 'As a merchant' do
         meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
         merchant_admin = meg.users.create!(
           name: 'Bob',
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233,
           email: 'bob@email.com',
           password: 'secure',
           role: 2
