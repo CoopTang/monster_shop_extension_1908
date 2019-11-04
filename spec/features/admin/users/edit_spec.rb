@@ -28,7 +28,7 @@ RSpec.describe 'As an admin user' do
       expect(current_path).to eq("/admin/users/#{@user.id}/edit")
     end
 
-    it 'is prepopulated with that user\'s previous data' do
+    xit 'is prepopulated with that user\'s previous data' do
       visit "/admin/users/#{@user.id}/edit"
 
       expect(find_field(:name).value).to eq(@user.name)
@@ -57,7 +57,7 @@ RSpec.describe 'As an admin user' do
       end
     end
 
-    it 'cannot be edited with an email already in use' do
+    xit 'cannot be edited with an email already in use' do
       user = User.create(
         name: 'Bob',
         email: 'not_bob@email.com',
