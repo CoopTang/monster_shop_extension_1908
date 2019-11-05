@@ -29,15 +29,29 @@ RSpec.describe 'As a registered user,' do
 
     scenario 'I see a list of all my addresses and their info' do
       within "#address-#{@home.id}" do
-        expect(page).to have_content("Home")
+        expect(page).to have_link("Home")
         expect(page).to have_content("123 Main")
         expect(page).to have_content("Denver, CO 80233")
       end
       within "#address-#{@work.id}" do
-        expect(page).to have_content("Work")
+        expect(page).to have_link("Work")
         expect(page).to have_content("456 Secondary")
         expect(page).to have_content("Boulder, CO 80303")
       end
+    end
+
+    scenario 'I can click on a link of an address to bring me to the address show page' do
+      within "#address-#{@home.id}" do
+        click_link 'Home'
+      end
+
+      expect(current_path).to eq("/profile/addresses/#{@home.id}")
+    end
+
+    scenario 'I can click on a link to add a new address' do
+      click_link 'New Address'
+
+      expect(current_path).to eq('/profile/addresses/new')
     end
   end
 end
