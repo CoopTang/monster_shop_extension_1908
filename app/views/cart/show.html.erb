@@ -50,6 +50,7 @@
     <% if current_user %>
       <% if current_user.addresses.empty?%>
         You must have a registered address to checkout!
+        <%= link_to "Add Address", '/profile/addresses/new', method: :get %>
       <% else %>
         <%= link_to "Checkout", "/orders/new", method: :get %>
       <% end %>
