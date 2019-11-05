@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'As a User' do
   describe 'when logging out' do
-    xit 'takes me back to the home page and deletes cart contents' do
+    it 'takes me back to the home page and deletes cart contents' do
       visit login_path
 
       user = User.create(
