@@ -1,8 +1,9 @@
 <h1>My Addresses</h1>
+<%= link_to 'New Address', profile_addresses_new_path %>
 <section>
   <% @addresses.each do |address| %>
     <article id='address-<%= address.id %>'>
-      <p><%= address.name.capitalize %></p>
+      <p><%= link_to address.name.capitalize, "/profile/addresses/#{address.id}" %></p>
       <p><%= address.address %></p>
       <p><%= "#{address.city}, #{address.state} #{address.zip}" %></p>
     </article>
