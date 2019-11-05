@@ -63,17 +63,11 @@ RSpec.describe 'As a User' do
     end
 
     describe 'as a regular user' do
-      xit 'when I enter my valid credentials, I am redirected to my profile page' do
+      it 'when I enter my valid credentials, I am redirected to my profile page' do
         user = User.create(
           name: 'Bob',
           email: 'bob@email.com',
           password: 'secure'
-        )
-        user.addresses.create(
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233
         )
 
         fill_in :email, with: user.email
@@ -88,17 +82,11 @@ RSpec.describe 'As a User' do
         expect(page).to_not have_link('Log In')
       end
 
-      xit 'redirects me to the appropriate profile if Im already logged in' do
+      it 'redirects me to the appropriate profile if Im already logged in' do
         user = User.create(
           name: 'Bob',
           email: 'bob@email.com',
           password: 'secure'
-        )
-        user.addresses.create(
-          address: '123 Main',
-          city: 'Denver',
-          state: 'CO',
-          zip: 80_233
         )
 
         fill_in :email, with: user.email

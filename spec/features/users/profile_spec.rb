@@ -10,12 +10,6 @@ RSpec.describe 'As a registered user' do
         email: 'bob@email.com',
         password: 'secure'
       )
-      user.addresses.create(
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233
-      )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -29,17 +23,11 @@ RSpec.describe 'As a registered user' do
       end
     end
 
-    xit 'has a link to edit the user profile data' do
+    it 'has a link to edit the user profile data' do
       user = User.create(
         name: 'Bob',
         email: 'bob@email.com',
         password: 'secure'
-      )
-      user.addresses.create(
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233
       )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -58,12 +46,6 @@ RSpec.describe 'As a registered user' do
         name: 'Bob',
         email: 'bob@email.com',
         password: 'secure'
-      )
-      user.addresses.create(
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233
       )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
