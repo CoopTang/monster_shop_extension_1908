@@ -55,8 +55,15 @@ RSpec.describe 'Cart show' do
 
       visit cart_path
 
-      expect(page).to_not have_link('Checkout')
-      expect(page).to have_content('You must have a registered address to checkout!')
+      within '#checkout' do
+        expect(page).to_not have_link('Checkout')
+        expect(page).to have_content('You must have a registered address to checkout!')
+        
+        click_link 'Add Address'
+      end
+
+      expect(current_path).to eq('/profile/addresses/new')
+      
     end
 
     it 'If I am not a registerd user, there is no checkout link, but there is a prompt to register or login' do
