@@ -12,4 +12,10 @@ class UserAddressesController < ApplicationController
 
   def edit
   end
+
+  def destroy
+    Address.destroy(params[:address_id])
+    flash[:success] = 'Address has been deleted!'
+    redirect_to '/profile/addresses'
+  end
 end
