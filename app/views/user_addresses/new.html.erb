@@ -1,0 +1,15 @@
+<h1>New Address</h1>
+
+<%= form_tag '/profile/addresses' do %>
+  <%= 
+    render partial: 'partials/address_form_template',
+      locals: {
+        name: nil,
+        address: nil,
+        city: nil,
+        state: nil,
+        zip: nil,
+      }
+  %>
+  <p><%= submit_tag "Create Address" %></p>
+<%end %>
