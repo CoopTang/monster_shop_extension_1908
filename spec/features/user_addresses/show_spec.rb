@@ -31,5 +31,15 @@ RSpec.describe 'As a registered user,' do
 
       expect(current_path).to eq(profile_addresses_edit_path(@home))
     end
+
+    scenario 'I can click on a link to delete the address' do
+      click_link 'Delete'
+
+      expect(current_path).to eq('/profile/addresses')
+
+      expect(page).to have_content('Address has been deleted!')
+
+      expect(page).to_not have_css("address-#{@home.id}")
+    end
   end
 end
