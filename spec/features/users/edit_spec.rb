@@ -5,16 +5,10 @@ require 'rails_helper'
 RSpec.describe 'As a registered user' do
   describe 'when I visit the edit profile data form' do
     before :each do
-      user = User.create(
+      @user = User.create(
         name: 'Bob',
         email: 'bob@email.com',
         password: 'secure'
-      )
-      user.addresses.create(
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233
       )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -26,21 +20,13 @@ RSpec.describe 'As a registered user' do
       end
     end
 
-    xit 'is prepopulated with my previous data' do
+    it 'is prepopulated with my previous data' do
       expect(find_field(:name).value).to eq(@user.name)
-      expect(find_field(:address).value).to eq(@user.address)
-      expect(find_field(:city).value).to eq(@user.city)
-      expect(find_field(:state).value).to eq(@user.state)
-      expect(find_field(:zip).value).to eq(@user.zip)
       expect(find_field(:email).value).to eq(@user.email)
     end
 
-    xit 'edited data shows on the profile page' do
+    it 'edited data shows on the profile page' do
       fill_in :name, with: 'Bob'
-      fill_in :address, with: '542 Oak Ave'
-      fill_in :city, with: 'Boulder'
-      fill_in :state, with: 'Colorado'
-      fill_in :zip, with: 80_001
       fill_in :email, with: 'bob@email.com'
 
       click_button 'Update Profile'
@@ -51,25 +37,15 @@ RSpec.describe 'As a registered user' do
 
       within '#user-info' do
         expect(page).to have_content('Bob')
-        expect(page).to have_content('542 Oak Ave')
-        expect(page).to have_content('Boulder')
-        expect(page).to have_content('Colorado')
-        expect(page).to have_content('80001')
         expect(page).to have_content('bob@email.com')
       end
     end
 
-    xit 'cannot be edited with an email already in use' do
+    it 'cannot be edited with an email already in use' do
       user = User.create(
         name: 'Bob',
-        email: 'bob@email.com',
+        email: 'not_bob@email.com',
         password: 'secure'
-      )
-      user.addresses.create(
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233
       )
 
       fill_in :email, with: 'not_bob@email.com'
@@ -83,13 +59,9 @@ RSpec.describe 'As a registered user' do
   end
 
   describe 'when I visit the edit password form' do
-    xit 'I see a link to edit my password' do
+    it 'I see a link to edit my password' do
       user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
@@ -116,13 +88,9 @@ RSpec.describe 'As a registered user' do
       expect(page).to have_content('Your password has been updated successfully!')
     end
 
-    xit 'password cannot be updated if they do not match' do
+    it 'password cannot be updated if they do not match' do
       user = User.create(
         name: 'Bob',
-        address: '123 Main',
-        city: 'Denver',
-        state: 'CO',
-        zip: 80_233,
         email: 'bob@email.com',
         password: 'secure'
       )
