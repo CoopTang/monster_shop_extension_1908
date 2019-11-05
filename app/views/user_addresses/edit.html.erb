@@ -1,0 +1,15 @@
+<h1>Edit Address</h1>
+
+<%= form_tag "/profile/addresses/#{@address.id}", method: :patch do %>
+  <%= 
+    render partial: 'partials/address_form_template',
+      locals: {
+        name: @address.name,
+        address: @address.address,
+        city: @address.city,
+        state: @address.state,
+        zip: @address.zip
+      }
+  %>
+  <p><%= submit_tag "Update Address" %></p>
+<%end %>
