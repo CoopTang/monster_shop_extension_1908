@@ -44,7 +44,22 @@ RSpec.describe 'Cart show' do
       expect(current_path).to eq('/orders/new')
     end
 
-    xit 'If I am not a registerd user, there is no checkout link, but there is a prompt to register or login' do
+    it 'I cannot checkout if there are no addresses' do
+      user = User.create(
+        name: 'Bob',
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit cart_path
+
+      expect(page).to_not have_link('Checkout')
+      expect(page).to have_content('You must have a registered address to checkout!')
+    end
+
+    it 'If I am not a registerd user, there is no checkout link, but there is a prompt to register or login' do
       visit cart_path
 
       expect(page).to have_content('Please Register or Log In to Checkout')
