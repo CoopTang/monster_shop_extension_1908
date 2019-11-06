@@ -16,9 +16,15 @@ RSpec.describe 'As a registered user' do
         email: 'bob@email.com',
         password: 'secure'
       )
+      home = user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
+      order_1 = user.orders.create!(name: 'Meg', address_id: home.id)
 
       order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2)
       order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3)
