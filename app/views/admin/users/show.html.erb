@@ -9,6 +9,16 @@
 </section>
 <br>
 
+<section id='user-address-links'>
+  <h3> <%= @user.name %>'s Addresses</h3>
+    <% @user.addresses.each do |address| %>
+      <p>
+        <%= link_to "#{address.name.capitalize}", "/admin/users/#{@user.id}/addresses/#{address.id}" %><br>
+        <%= "#{address.address}\n#{address.city}, #{address.state} #{address.zip}" %>
+      </p>
+    <% end %>
+</section>
+
 <section id='user-order-links'>
   <h3> <%= @user.name %>'s Orders</h3>
   <% @user.orders.each do |order| %>

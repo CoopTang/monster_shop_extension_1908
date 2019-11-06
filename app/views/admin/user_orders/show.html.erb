@@ -1,5 +1,10 @@
 <h1>Order ID: <%= @order.id %></h1>
 <article id='order-info'>
+  <p>
+    <%= @order.name %><br>
+    <%= @order.address.address %><br>
+    <%= "#{@order.address.city}, #{@order.address.state} #{@order.address.zip}" %>
+  </p>
   <%= render partial: 'partials/order_info',
     locals: {
       id: @order.id,
@@ -12,6 +17,7 @@
     }
   %>
 <% if @order.status == 'Pending' %>
-  <p><%= link_to 'Cancel Order', "/admin/users/#{@order.user.id}/orders/#{@order.id}", method: :patch %>
+  <p><%= link_to 'Update Shipping Info', "/admin/users/#{@order.user.id}/orders/#{@order.id}/edit" %>
+  <p><%= link_to 'Cancel Order', "/admin/users/#{@order.user.id}/orders/#{@order.id}/cancel", method: :patch %>
 <% end %>
 </article>

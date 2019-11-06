@@ -8,11 +8,18 @@ RSpec.describe 'As an admin user' do
         email: 'bob@email.com',
         password: 'secure'
       )
-      user.addresses.create(
+      home = user.addresses.create(
         address: '123 Main',
         city: 'Denver',
         state: 'CO',
         zip: 80_233
+      )
+      work = user.addresses.create(
+        name: 'work',
+        address: '456 Secondary',
+        city: 'Boulder',
+        state: 'CO',
+        zip: 80_303
       )
 
       site_admin = User.create(
@@ -30,6 +37,13 @@ RSpec.describe 'As an admin user' do
         expect(page).to have_content('Email: bob@email.com')
         expect(page).to have_link('Edit Profile')
         expect(page).to_not have_link('Edit Password')
+      end
+
+      within '#user-address-links' do
+        expect(page).to have_link("Home")
+        expect(page).to have_content("123 Main Denver, CO 80233")
+        expect(page).to have_link("Work")
+        expect(page).to have_content("456 Secondary Boulder, CO 80303")
       end
     end
   end

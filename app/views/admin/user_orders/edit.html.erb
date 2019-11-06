@@ -1,9 +1,10 @@
+
 <h2>Shipping Info:</h2>
-<%= form_tag "/profile/orders/#{@order.id}/update", method: :patch do %>
+<%= form_tag "/admin/users/#{@order.user.id}/orders/#{@order.id}/update", method: :patch do %>
   <%= label_tag :name %>
   <%= text_field_tag :name, @order.name %>
 
-  <% current_user.addresses.each do |address| %>
+  <% @order.user.addresses.each do |address| %>
     <p id='address-<%= address.id %>'>
       <%= radio_button_tag(:address_id, address.id) %>
       <%= label_tag "#{address.name}" %><br>
