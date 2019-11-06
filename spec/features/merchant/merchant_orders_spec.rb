@@ -12,22 +12,14 @@ describe 'As a logged in Merchant (employee/admin)' do
     @paper = @mike.items.create(name: 'Lined Paper', description: 'Great for writing on!', price: 20, image: 'https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png', inventory: 3)
     @pencil = @mike.items.create(name: 'Yellow Pencil', description: 'You can write on paper with it!', price: 2, image: 'https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg', inventory: 100)
 
-    @merchant_employee = @meg.users.create!(
-      name: 'Other Bob',
-      email: 'otherbob@email.com',
-      password: 'secure',
-      role: 1
-    )
-
+    @merchant_employee = @meg.users.create!(name: 'Other Bob', email: 'otherbob@email.com', password: 'secure', role: 1)
+    
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_employee)
+    
+    @user = User.create!(name: 'Bob', email: '@user@email.com', password: 'secure')
+    home = @user.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
 
-    @user = User.create!(
-      name: 'Bob',
-      email: '@user@email.com',
-      password: 'secure'
-    )
-
-    @order = @user.orders.create!(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, status: 'Pending')
+    @order = @user.orders.create!(name: 'Bob', address_id: home.id, status: 'Pending')
 
     ItemOrder.create!(order_id: @order.id, item_id: @tire.id, quantity: 3, price: 100, merchant_id: @meg.id)
     ItemOrder.create!(order_id: @order.id, item_id: @pump.id, quantity: 4, price: 25, merchant_id: @meg.id)
@@ -41,10 +33,10 @@ describe 'As a logged in Merchant (employee/admin)' do
     expect(current_path).to eq("/merchant/orders/#{@order.id}")
 
     expect(page).to have_content(@order.name)
-    expect(page).to have_content(@order.address)
-    expect(page).to have_content(@order.city)
-    expect(page).to have_content(@order.state)
-    expect(page).to have_content(@order.zip)
+    expect(page).to have_content(@order.address.address)
+    expect(page).to have_content(@order.address.city)
+    expect(page).to have_content(@order.address.state)
+    expect(page).to have_content(@order.address.zip)
 
     within "#item-#{@pump.id}" do
       expect(page).to have_content(@pump.name)

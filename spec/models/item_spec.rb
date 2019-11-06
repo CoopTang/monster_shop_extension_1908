@@ -56,7 +56,13 @@ describe Item, type: :model do
         email: 'bob@email.com',
         password: 'secure'
       )
-      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033)
+      home = user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
+      order = user.orders.create(name: 'Meg', address_id: home.id)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end

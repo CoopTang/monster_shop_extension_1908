@@ -27,8 +27,9 @@ RSpec.describe 'Order Update' do
         email: '@user@email.com',
         password: 'secure'
       )
+      @home = @user.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
 
-      @order = @user.orders.create!(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233, status: 'Pending')
+      @order = @user.orders.create!(name: 'Bob', address_id: @home.id, status: 'Pending')
 
       ItemOrder.create!(order_id: @order.id, item_id: @tire.id, quantity: 3, price: 100, merchant_id: @meg.id)
       ItemOrder.create!(order_id: @order.id, item_id: @pump.id, quantity: 4, price: 25, merchant_id: @meg.id, status: 1)
