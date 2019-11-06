@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     patch '/users/:user_id', to: 'users#toggle_enabled'
     get '/users/:user_id/edit', to: 'users#edit_profile'
     patch '/users/:user_id/update', to: 'users#update_profile', as: 'update_user_profile'
+    get '/users/:user_id/addresses/:address_id', to: 'user_addresses#show'
     get '/users/:user_id/orders/:order_id', to: 'user_orders#show', as: 'user_order'
     patch '/users/:user_id/orders/:order_id', to: 'user_orders#cancel'
     patch '/orders/:order_id', to: 'dashboard#update_order_status'
