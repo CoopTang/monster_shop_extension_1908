@@ -54,7 +54,7 @@ describe Merchant, type: :model do
       expect(@meg.average_item_price).to eq(70)
     end
 
-    xit 'distinct_cities' do
+    it 'distinct_cities' do
       chain = @meg.items.create(name: 'Chain', description: "It'll never break!", price: 40, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 22)
       user_1 = User.create(
         name: 'Bob',
@@ -66,6 +66,12 @@ describe Merchant, type: :model do
         city: 'Denver',
         state: 'CO',
         zip: 80_233
+      )
+      work_1 = user_1.addresses.create(
+        address: '456 Secondary',
+        city: 'Boulder',
+        state: 'CO',
+        zip: 80_303
       )
 
       user_2 = User.create(
@@ -81,7 +87,7 @@ describe Merchant, type: :model do
         zip: 80_233
       )
       order_1 = user_1.orders.create!(name: 'Meg', address_id: home_1.id)
-      order_2 = user_1.orders.create!(name: 'Brian', address_id: home_1.id)
+      order_2 = user_1.orders.create!(name: 'Brian', address_id: work_1.id)
       order_3 = user_1.orders.create!(name: 'Dao', address_id: home_1.id)
       order_4 = user_2.orders.create!(name: 'Dao', address_id: home_2.id)
       order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
@@ -89,7 +95,7 @@ describe Merchant, type: :model do
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       order_4.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
-      expect(@meg.distinct_cities.sort).to eq(%w[Denver Hershey])
+      expect(@meg.distinct_cities.sort).to eq(%w[Boulder Denver])
     end
 
     it 'specific_orders' do
