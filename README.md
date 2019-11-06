@@ -21,4 +21,4 @@ Or visit the website:
 
 ## Data Structure
 
-<img width="1015" src="https://i.imgur.com/70gH0pw.png">
+<img width="1015" src="https://imgur.com/kfFk1t2">
