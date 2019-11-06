@@ -49,38 +49,38 @@ dog_bowl.reviews.create(title: 'Amazing!', content: 'Truly changed my life!', ra
 
 # regular user
 user_1 = User.create(name: 'User 1', email: 'user_1@user.com', password: 'secure', role: 0)
-user_1.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+address_user_1 = user_1.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
 user_2 = User.create(name: 'User 2', email: 'user_2@user.com', password: 'secure', role: 0)
-user_2.addresses.create(address: '987 First', city: 'Dallas', state: 'TX', zip: 75_001)
+address_user_2 = user_2.addresses.create(address: '987 First', city: 'Dallas', state: 'TX', zip: 75_001)
 
 # merchant employee
 bike_employee = bike_shop.users.create(name: 'Bike Employee', email: 'bike_employee@user.com', password: 'secure', role: 1)
-bike_employee.addresses.create(address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+address_bike_employee = bike_employee.addresses.create(address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
 dog_employee = dog_shop.users.create(name: 'Dog Employee', email: 'dog_employee@user.com', password: 'secure', role: 1)
-dog_employee.addresses.create(address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
+address_dog_employee = dog_employee.addresses.create(address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
 
 # merchant admin
 bike_admin = bike_shop.users.create(name: 'Bike Admin', email: 'bike_admin@user.com', password: 'secure', role: 2)
-bike_admin.addresses.create(address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
+address_bike_admin = bike_admin.addresses.create(address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
 dog_admin = dog_shop.users.create(name: 'Dog Admin', email: 'dog_admin@user.com', password: 'secure', role: 2)
-dog_admin.addresses.create(address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
+address_dog_admin = dog_admin.addresses.create(address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
 
 # site admin
 site_admin = User.create(name: 'Site Admin', email: 'site_admin@user.com', password: 'secure', role: 3)
-site_admin.addresses.create(address: '123 First', city: 'Denver', state: 'CO', zip: 80_233)
+address_site_admin = site_admin.addresses.create(address: '123 First', city: 'Denver', state: 'CO', zip: 80_233)
 
 # orders
-order_1 = user_1.orders.create(name: 'User 1', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+order_1 = user_1.orders.create(name: 'User 1', address_id: address_user_1.id)
 item_order_1a = order_1.item_orders.create(order_id: order_1.id, item_id: tire.id, quantity: 1, price: 100, merchant_id: bike_shop.id)
 item_order_1b = order_1.item_orders.create(order_id: order_1.id, item_id: helmet.id, quantity: 1, price: 15, merchant_id: bike_shop.id)
 item_order_1c = order_1.item_orders.create(order_id: order_1.id, item_id: pull_toy.id, quantity: 2, price: 10, merchant_id: dog_shop.id)
 
-order_2 = user_2.orders.create(name: 'User 2', address: '987 First', city: 'Dallas', state: 'TX', zip: 75_001)
+order_2 = user_2.orders.create(name: 'User 2', address_id: address_user_2.id)
 item_order_2a = order_2.item_orders.create(order_id: order_2.id, item_id: pull_toy.id, quantity: 1, price: 10, merchant_id: dog_shop.id)
 item_order_2b = order_2.item_orders.create(order_id: order_2.id, item_id: tire.id, quantity: 2, price: 100, merchant_id: bike_shop.id)
 
-order_3 = user_1.orders.create(name: 'User 1', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+order_3 = user_1.orders.create(name: 'User 1', address_id: address_user_1.id)
 item_order_3a = order_3.item_orders.create(order_id: order_3.id, item_id: helmet.id, quantity: 2, price: 15, merchant_id: bike_shop.id)
 
-order_4 = user_2.orders.create(name: 'User 2', address: '987 First', city: 'Dallas', state: 'TX', zip: 75_001)
+order_4 = user_2.orders.create(name: 'User 2', address_id: address_user_2.id)
 item_order_4a = order_4.item_orders.create(order_id: order_4.id, item_id: pull_toy.id, quantity: 2, price: 10, merchant_id: dog_shop.id)
