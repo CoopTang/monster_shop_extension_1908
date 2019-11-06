@@ -9,6 +9,7 @@ class Address < ApplicationRecord
   validates_numericality_of :zip
 
   belongs_to :user
+  has_many :orders, dependent: :destroy
 
   def has_shipped_orders?
     !(Order.find_by(address_id: id, status: 2).nil?)
