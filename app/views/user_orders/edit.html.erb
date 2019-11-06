@@ -1,40 +1,16 @@
-<h1 align = "center">Order</h1>
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Price</th>
-    <th>Quantity</th>
-    <th>Subtotal</th>
-    <th>Sold By</th>
-    <th>Inventory</th>
-  </tr>
-  <% cart.items.each do |item, quantity| %>
-    <tr id='order-item-<%= item.id%>'>
-      <td><h2><%= link_to item.name, "/items/#{item.id}" %></h2></td>
-      <td><p><%= number_to_currency(item.price) %></p></td>
-      <td><p><%= quantity %></p></td>
-      <td><p><%= number_to_currency(cart.subtotal(item)) %></p><td>
-      <td><p><%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %></p></td>
-      <td><p><%= item.inventory %> in stock</p></td>
-    </tr>
-  <% end %>
-</table>
-<h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
-<center>
-  <h2>Shipping Info:</h2>
-  <%= form_tag "/profile/orders/#{@order.id}/update", method: :patch do %>
-    <%= label_tag :name %>
-    <%= text_field_tag :name, @order.name %>
+<h2>Shipping Info:</h2>
+<%= form_tag "/profile/orders/#{@order.id}/update", method: :patch do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name, @order.name %>
 
-    <% current_user.addresses.each do |address| %>
-      <p id='address-<%= address.id %>'>
-        <%= radio_button_tag(:address_id, address.id) %>
-        <%= label_tag "#{address.name}" %><br>
-        <%= address.address %><br>
-        <%= "#{address.city}, #{address.state} #{address.zip}" %>
-      </p>
-    <% end %>
-
-    <%= submit_tag 'Update Shipping Address' %>
+  <% current_user.addresses.each do |address| %>
+    <p id='address-<%= address.id %>'>
+      <%= radio_button_tag(:address_id, address.id) %>
+      <%= label_tag "#{address.name}" %><br>
+      <%= address.address %><br>
+      <%= "#{address.city}, #{address.state} #{address.zip}" %>
+    </p>
   <% end %>
-</center>
+
+  <%= submit_tag 'Update Shipping Address' %>
+<% end %>
