@@ -15,6 +15,19 @@ RSpec.describe('New Order Page') do
         email: 'bob@email.com',
         password: 'secure'
       )
+      @home = @user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
+      @work = @user.addresses.create(
+        name: 'Work',
+        address: '456 Secondary',
+        city: 'Boulder',
+        state: 'CO',
+        zip: 80_303
+      )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -59,15 +72,11 @@ RSpec.describe('New Order Page') do
       expect(page).to have_content('Total: $142')
     end
 
-    it 'I see a form where I can enter my shipping info' do
+    it 'I see a list of my addresses to use for checkout' do
       visit '/cart'
       click_on 'Checkout'
-
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
+      expect(page).to have_content("Home 123 Main Denver, CO 80233")
+      expect(page).to have_content("Work 456 Secondary Boulder, CO 80303")
       expect(page).to have_button('Create Order')
     end
   end
