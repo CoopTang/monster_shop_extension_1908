@@ -38,6 +38,10 @@ class UserAddressesController < ApplicationController
   end
 
   def destroy
+    orders = Order.where(address_id: params[:address_id])
+    item_orders = ItemOrder.where(order_id: orders.ids)
+    ItemOrder.destroy(item_orders.ids)
+    Order.destroy(orders.ids)
     Address.destroy(params[:address_id])
     flash[:success] = 'Address has been deleted!'
     redirect_to '/profile/addresses'
