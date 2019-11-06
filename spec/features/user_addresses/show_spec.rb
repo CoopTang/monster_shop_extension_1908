@@ -41,5 +41,13 @@ RSpec.describe 'As a registered user,' do
 
       expect(page).to_not have_css("address-#{@home.id}")
     end
+
+    scenario 'I cannot delete an address that has been used in an order that has been shipped already' do
+      @user.orders.create(name: 'Michael', address_id: @home.id, status: 2)
+
+      visit "/profile/addresses/#{@home.id}"
+      
+      expect(page).to_not have_link('Delete')
+    end
   end
 end
