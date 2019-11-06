@@ -15,6 +15,19 @@ RSpec.describe 'Order Creation' do
         email: 'bob@email.com',
         password: 'secure'
       )
+      @home = @user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
+      @work = @user.addresses.create(
+        name: 'Work',
+        address: '456 Secondary',
+        city: 'Boulder',
+        state: 'CO',
+        zip: 80_303
+      )
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
@@ -32,17 +45,11 @@ RSpec.describe 'Order Creation' do
     end
 
     it 'I can create a new order' do
-      name = 'Bert'
-      address = '123 Sesame St.'
-      city = 'NYC'
-      state = 'New York'
-      zip = 10_001
+      fill_in :name, with: @user.name
 
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      within "#address-#{@home.id}" do
+        choose "address_id"
+      end
 
       click_button 'Create Order'
 
@@ -51,11 +58,11 @@ RSpec.describe 'Order Creation' do
       expect(current_path).to eq("/orders/#{new_order.id}")
 
       within '.shipping-address' do
-        expect(page).to have_content(name)
-        expect(page).to have_content(address)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip)
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@home.address)
+        expect(page).to have_content(@home.city)
+        expect(page).to have_content(@home.state)
+        expect(page).to have_content(@home.zip)
       end
 
       within "#item-#{@paper.id}" do
@@ -92,18 +99,6 @@ RSpec.describe 'Order Creation' do
     end
 
     it 'i cant create order if info not filled out' do
-      name = ''
-      address = '123 Sesame St.'
-      city = 'NYC'
-      state = 'New York'
-      zip = 10_001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
-
       click_button 'Create Order'
 
       expect(page).to have_content('Please complete address form to create an order.')
@@ -111,17 +106,13 @@ RSpec.describe 'Order Creation' do
     end
 
     it 'after I create an order, I am taken to the order page and see a status of pending' do
-      fill_in :name, with: 'Bert'
-      fill_in :address, with: '123 Sesame St.'
-      fill_in :city, with: 'NYC'
-      fill_in :state, with: 'New York'
-      fill_in :zip, with: 10_001
+      fill_in :name, with: @user.name
+
+      within "#address-#{@home.id}" do
+        choose "address_id"
+      end
 
       click_button 'Create Order'
-
-      new_order = Order.last
-
-      expect(current_path).to eq(order_path(new_order))
 
       expect(page).to have_content('Status: Pending')
 
