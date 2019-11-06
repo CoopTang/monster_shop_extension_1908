@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
-    xit 'I see a nav bar with links to all pages' do
+    it 'I see a nav bar with links to all pages' do
       visit '/merchants'
 
       within 'nav' do
