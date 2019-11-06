@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'As an Admin User' do
   describe 'when I visit a user\'s profile' do
-    xit 'I can click a link and view the user\'s order show page' do
+    it 'I can click a link and view the user\'s order show page' do
       user_1 = User.create(name: 'User 1', email: 'user_1@user.com', password: 'secure', role: 0)
       home = user_1.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
       dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)

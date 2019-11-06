@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'As an admin user' do
   describe 'when I visit a specific users profile page ' do
-    xit 'it shows the same info the user would see on their profile page' do
+    it 'it shows the same info the user would see on their profile page' do
       user = User.create(
         name: 'Bob',
         email: 'bob@email.com',
@@ -27,10 +27,6 @@ RSpec.describe 'As an admin user' do
 
       within '#user-info' do
         expect(page).to have_content('Name: Bob')
-        expect(page).to have_content('Address: 123 Main')
-        expect(page).to have_content('City: Denver')
-        expect(page).to have_content('State: CO')
-        expect(page).to have_content('Zip: 80233')
         expect(page).to have_content('Email: bob@email.com')
         expect(page).to have_link('Edit Profile')
         expect(page).to_not have_link('Edit Password')
