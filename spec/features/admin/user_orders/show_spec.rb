@@ -74,7 +74,7 @@ RSpec.describe 'As an Admin User' do
           click_link 'Cancel Order'
         end
 
-        expect(current_path).to eq(admin_users_path(user_1.id))
+        expect(current_path).to eq("/admin/users/#{user_1.id}")
         expect(page).to have_content('Order has been cancelled!')
 
         tire.reload
@@ -128,7 +128,7 @@ RSpec.describe 'As an Admin User' do
 
         visit "/admin/users/#{user_1.id}/orders/#{order_1.id}"
 
-        click_link 'Update Shipping info'
+        click_link 'Update Shipping Info'
 
         expect(current_path).to eq("/admin/users/#{user_1.id}/orders/#{order_1.id}/edit")
       end
