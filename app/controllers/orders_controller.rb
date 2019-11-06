@@ -29,6 +29,23 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:name, :address, :city, :state, :zip)
+    address = Address.find_by(id: params[:address_id])
+    if address
+      {
+        name: params[:name],
+        address: address.address,
+        city: address.city,
+        state: address.state,
+        zip: address.zip
+      }
+    else
+      {
+        name: nil,
+        address: nil,
+        city: nil,
+        state: nil,
+        zip: nil
+      }
+    end
   end
 end
