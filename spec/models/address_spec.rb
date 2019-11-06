@@ -13,4 +13,35 @@ RSpec.describe Address, type: :model do
   describe 'relationships' do
     it { should belong_to :user }
   end
+
+  describe 'instance methods' do
+    before :each do
+      @user = User.create(
+        name: 'Bob',
+        email: 'bob@email.com',
+        password: 'secure'
+      )
+      @home = @user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
+      @work = @user.addresses.create(
+        name: 'Work',
+        address: '456 Secondary',
+        city: 'Boulder',
+        state: 'CO',
+        zip: 80_303
+      )
+    end
+
+    it '#has_shipped_orders?' do
+      order_1 = @user.orders.create(name: 'Michael', address_id: @home.id, status: 2)
+      order_2 = @user.orders.create(name: 'Michael', address_id: @work.id, status: 0)
+      
+      expect(@home.has_shipped_orders?).to eq(true)
+      expect(@work.has_shipped_orders?).to eq(false)
+    end
+  end
 end
