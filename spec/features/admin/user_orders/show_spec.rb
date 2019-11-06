@@ -110,6 +110,28 @@ RSpec.describe 'As an Admin User' do
           expect(page).to_not have_link('Cancel Order')
         end
       end
+
+      it 'it displays a link to update the shipping information of an order that is Pending' do
+        user_1 = User.create(name: 'User 1', email: 'user_1@user.com', password: 'secure', role: 0)
+        home = user_1.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+        dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
+        bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '125 Bike St.', city: 'Denver', state: 'CO', zip: 80_210)
+        tire = bike_shop.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
+        pull_toy = dog_shop.items.create(name: 'Pull Toy', description: 'Great pull toy!', price: 10, image: 'http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg', inventory: 32)
+        order_1 = user_1.orders.create(name: 'User 1', address_id: home.id, status: 0)
+        item_order_1 = order_1.item_orders.create(order_id: order_1.id, item_id: tire.id, quantity: 2, price: 15, merchant_id: bike_shop.id, status: 1)
+        item_order_2 = order_1.item_orders.create(order_id: order_1.id, item_id: pull_toy.id, quantity: 1, price: 100, merchant_id: dog_shop.id, status: 0)
+
+        site_admin = User.create(name: 'Site Admin', email: 'site_admin@user.com', password: 'secure', role: 3)
+
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(site_admin)
+
+        visit "/admin/users/#{user_1.id}/orders/#{order_1.id}"
+
+        click_link 'Update Shipping info'
+
+        expect(current_path).to eq("/admin/users/#{user_1.id}/orders/#{order_1.id}/edit")
+      end
     end
   end
 end
