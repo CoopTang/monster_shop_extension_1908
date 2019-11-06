@@ -14,11 +14,10 @@ describe 'Items Index Page' do
       @lock = meg.items.create(name: 'Lock', description: 'It works fast!', price: 25, image: 'https://images-na.ssl-images-amazon.com/images/I/71Wa47HMBmL._SY550_.jpg', inventory: 15)
       @seat = meg.items.create(name: 'Seat', description: 'It works fast!', price: 25, image: 'https://images-na.ssl-images-amazon.com/images/I/71Wa47HMBmL._SY550_.jpg', inventory: 15)
 
-      user = User.create!(name: 'Bob',
-                          email: 'bob@email.com',
-                          password: 'secure')
+      user = User.create!(name: 'Bob', email: 'bob@email.com', password: 'secure')
+      home = user.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
 
-      order = user.orders.create(name: 'Bob', address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+      order = user.orders.create(name: 'Bob', address_id: home.id)
 
       ItemOrder.create(order_id: order.id, item_id: @tire.id, quantity: 12, price: 100)
       ItemOrder.create(order_id: order.id, item_id: @pump.id, quantity: 3, price: 20)

@@ -35,7 +35,8 @@ RSpec.describe 'item delete', type: :feature do
 
       it 'it cannot delete items with orders' do
         user = User.create(name: 'Bob', email: 'user@email.com', password: 'secure')
-        order_1 = user.orders.create!(name: 'Meg', address: '123 Stang St', city: 'Hershey', state: 'PA', zip: 80_218)
+        home = user.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+        order_1 = user.orders.create!(name: 'Meg', address_id: home.id)
         order_1.item_orders.create!(item: @chain, price: @chain.price, quantity: 2)
 
         visit "/items/#{@chain.id}"
