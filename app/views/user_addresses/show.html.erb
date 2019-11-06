@@ -2,4 +2,6 @@
 <h2><%= @address.address %></h2>
 <h2><%= "#{@address.city}, #{@address.state} #{@address.zip}" %></h2>
 <%= link_to 'Edit', profile_addresses_edit_path(@address) %>
-<%= link_to 'Delete', "/profile/addresses/#{@address.id}", method: :delete %>
+<% if !@address.has_shipped_orders? %>
+  <%= link_to 'Delete', "/profile/addresses/#{@address.id}", method: :delete %>
+<% end %>
