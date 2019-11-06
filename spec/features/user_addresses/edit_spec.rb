@@ -41,5 +41,21 @@ RSpec.describe 'As a registered user,' do
 
       expect(page).to have_content('Your address has been updated!')
     end
+
+    scenario 'I must fill out the form properly' do
+      fill_in :name, with: nil
+      fill_in :address, with: nil
+      fill_in :city, with: nil
+      fill_in :state, with: nil
+      fill_in :zip, with: nil
+      
+      click_button 'Update Address'
+
+      expect(page).to have_content('Name can\'t be blank')
+      expect(page).to have_content('Address can\'t be blank')
+      expect(page).to have_content('City can\'t be blank')
+      expect(page).to have_content('State can\'t be blank')
+      expect(page).to have_content('Zip can\'t be blank')
+    end
   end
 end
