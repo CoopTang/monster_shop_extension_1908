@@ -26,9 +26,9 @@ class Merchant < ApplicationRecord
   end
 
   def distinct_cities
-    item_orders.distinct.joins(order: :user)
+    item_orders.distinct.joins(order: [:user, :address])
       .where('"users"."enabled?" = \'t\'')
-      .pluck('orders.city')
+      .pluck('addresses.city')
   end
 
   def specific_orders

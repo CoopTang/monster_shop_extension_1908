@@ -8,6 +8,12 @@ RSpec.describe 'As an admin user' do
         email: 'bob@email.com',
         password: 'secure'
       )
+      @home = @user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
 
       @site_admin = User.create(
         name: 'Site Admin',
@@ -18,7 +24,7 @@ RSpec.describe 'As an admin user' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@site_admin)
     end
 
-    xit 'I can click on a link to edit that user\'s profile data' do
+    it 'I can click on a link to edit that user\'s profile data' do
       visit "/admin/users/#{@user.id}"
 
       within '#user-info' do
@@ -28,14 +34,14 @@ RSpec.describe 'As an admin user' do
       expect(current_path).to eq("/admin/users/#{@user.id}/edit")
     end
 
-    xit 'is prepopulated with that user\'s previous data' do
+    it 'is prepopulated with that user\'s previous data' do
       visit "/admin/users/#{@user.id}/edit"
 
       expect(find_field(:name).value).to eq(@user.name)
       expect(find_field(:email).value).to eq(@user.email)
     end
 
-    xit 'edited data shows on the profile page' do
+    it 'edited data shows on the profile page' do
       visit "/admin/users/#{@user.id}/edit"
 
       fill_in :name, with: 'Bob'
@@ -49,15 +55,11 @@ RSpec.describe 'As an admin user' do
 
       within '#user-info' do
         expect(page).to have_content('Bob')
-        expect(page).to have_content('542 Oak Ave')
-        expect(page).to have_content('Boulder')
-        expect(page).to have_content('Colorado')
-        expect(page).to have_content('80001')
         expect(page).to have_content('bob@email.com')
       end
     end
 
-    xit 'cannot be edited with an email already in use' do
+    it 'cannot be edited with an email already in use' do
       user = User.create(
         name: 'Bob',
         email: 'not_bob@email.com',

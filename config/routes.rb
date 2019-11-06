@@ -31,7 +31,9 @@ Rails.application.routes.draw do
 
   get '/profile/orders', to: 'user_orders#index'
   get '/profile/orders/:id', to: 'user_orders#show', as: 'profile_order'
-  patch '/profile/orders/:id', to: 'user_orders#update'
+  get '/profile/orders/:id/edit', to: 'user_orders#edit'
+  patch '/profile/orders/:id/update', to: 'user_orders#update'
+  patch '/profile/orders/:id/cancel', to: 'user_orders#cancel'
 
   get '/profile/addresses', to: 'user_addresses#index'
   get '/profile/addresses/new', to: 'user_addresses#new'
@@ -53,7 +55,7 @@ Rails.application.routes.draw do
     get '/users/:user_id/edit', to: 'users#edit_profile'
     patch '/users/:user_id/update', to: 'users#update_profile', as: 'update_user_profile'
     get '/users/:user_id/orders/:order_id', to: 'user_orders#show', as: 'user_order'
-    patch '/users/:user_id/orders/:order_id', to: 'user_orders#update', as: 'user_order_update'
+    patch '/users/:user_id/orders/:order_id', to: 'user_orders#cancel'
     patch '/orders/:order_id', to: 'dashboard#update_order_status'
     get '/merchants/:merchant_id', to: 'merchants#show', as: 'merchants'
     patch '/merchants/:merchant_id', to: 'merchants#toggle_enabled'

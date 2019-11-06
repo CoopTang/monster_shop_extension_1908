@@ -7,29 +7,27 @@ RSpec.describe 'As a Merchant Admin' do
     @meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203)
     @merchant_admin = @meg.users.create(
       name: 'Admin',
-      address: '123 Main',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_233,
       email: 'bobemail.com',
       password: 'secure',
       role: 2
     )
     @user = User.create!(
       name: 'User',
-      address: '123 Main',
-      city: 'Denver',
-      state: 'CO',
-      zip: 80_233,
       email: 'useremail.com',
       password: 'secure'
     )
+    @home = @user.addresses.create(
+        address: '123 Main',
+        city: 'Denver',
+        state: 'CO',
+        zip: 80_233
+      )
 
     @tire = @meg.items.create(name: 'Gatorskins', description: "They'll never pop!", price: 100, image: 'https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588', inventory: 12)
     @pump = @meg.items.create(name: 'Bike Pump', description: 'It works fast!', price: 25, image: 'https://images-na.ssl-images-amazon.com/images/I/71Wa47HMBmL._SY550_.jpg', active?: false, inventory: 15)
 
-    @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033, status: 'Pending')
-    @order_2 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17_033, status: 'Pending')
+    @order_1 = @user.orders.create!(name: 'Meg', address_id: @home.id, status: 'Pending')
+    @order_2 = @user.orders.create!(name: 'Meg', address_id: @home.id, status: 'Pending')
 
     @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
@@ -39,7 +37,7 @@ RSpec.describe 'As a Merchant Admin' do
   end
 
   describe 'on my items page' do
-    xit 'I see a link to deactivate an active item' do
+    it 'I see a link to deactivate an active item' do
       within "#item-#{@pump.id}" do
         expect(page).to have_content('Inactive')
         expect(page).to_not have_link('Deactivate Item')
@@ -60,7 +58,7 @@ RSpec.describe 'As a Merchant Admin' do
       expect(@tire.active?).to eq(false)
     end
 
-    xit 'I see a link to activate an inactive item' do
+    it 'I see a link to activate an inactive item' do
       within "#item-#{@tire.id}" do
         expect(page).to have_content('Active')
         expect(page).to_not have_link('Activate Item')
@@ -81,7 +79,7 @@ RSpec.describe 'As a Merchant Admin' do
       expect(@pump.active?).to eq(true)
     end
 
-    xit 'I see a link to delete an item that has never been ordered' do
+    it 'I see a link to delete an item that has never been ordered' do
       within "#item-#{@tire.id}" do
         expect(page).to_not have_link('Delete Item')
       end

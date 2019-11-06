@@ -12,6 +12,6 @@
     }
   %>
 <% if @order.status == 'Pending' %>
-  <p><%= link_to 'Cancel Order', admin_user_order_update_path(@order.user.id, @order.id), method: :patch %>
+  <p><%= link_to 'Cancel Order', "/admin/users/#{@order.user.id}/orders/#{@order.id}", method: :patch %>
 <% end %>
 </article>

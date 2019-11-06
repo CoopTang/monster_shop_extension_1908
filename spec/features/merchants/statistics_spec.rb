@@ -19,8 +19,9 @@ RSpec.describe 'merchant show page', type: :feature do
       @dog_bone = @brian.items.create(name: 'Dog Bone', description: "They'll love it!", price: 20, image: 'https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg', active?: false, inventory: 21)
       @user = User.create(name: 'Bob', email: 'bob@email.com', password: 'secure')
       @home = @user.addresses.create(address: '123 Main', city: 'Denver', state: 'CO', zip: 80_233)
+      @work = @user.addresses.create(address: '456 Secondary', city: 'Boulder', state: 'CO', zip: 80_303)
       @order_1 = @user.orders.create!(name: 'Meg', address_id: @home.id)
-      @order_2 = @user.orders.create!(name: 'Brian', address_id: @home.id)
+      @order_2 = @user.orders.create!(name: 'Brian', address_id: @work.id)
       @order_3 = @user.orders.create!(name: 'Mike', address_id: @home.id)
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
@@ -31,7 +32,7 @@ RSpec.describe 'merchant show page', type: :feature do
       @order_3.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 5)
     end
 
-    xit 'I can see a merchants statistics' do
+    it 'I can see a merchants statistics' do
       visit "/merchants/#{@brian.id}"
 
       within '.merchant-stats' do
@@ -39,7 +40,7 @@ RSpec.describe 'merchant show page', type: :feature do
         expect(page).to have_content('Average Price of Items: $10')
         within '.distinct-cities' do
           expect(page).to have_content('Cities that order these items:')
-          expect(page).to have_content('Hershey')
+          expect(page).to have_content('Boulder')
           expect(page).to have_content('Denver')
         end
       end

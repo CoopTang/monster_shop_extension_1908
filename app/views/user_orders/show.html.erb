@@ -12,9 +12,10 @@
     }
   %>
 <% if @order.status == 'Pending' %>
-  <p><%= link_to 'Cancel Order', profile_order_path(@order), method: :patch %>
+  <p><%= link_to 'Cancel Order', "/profile/orders/#{@order.id}/cancel", method: :patch %>
+  <p><%= link_to 'Update Shipping Address', "/profile/orders/#{@order.id}/edit" %>
 <% end %>
 <% if @order.status == 'Packaged' %>
-  <p><%= link_to 'Cancel Order', profile_order_path(@order), method: :patch %>
+  <p><%= link_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :patch %>
 <% end %>
 </article>

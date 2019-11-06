@@ -9,4 +9,8 @@ class Address < ApplicationRecord
   validates_numericality_of :zip
 
   belongs_to :user
+
+  def has_shipped_orders?
+    !(Order.find_by(address_id: id, status: 2).nil?)
+  end
 end

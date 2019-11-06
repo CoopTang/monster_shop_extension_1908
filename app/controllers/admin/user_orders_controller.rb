@@ -4,7 +4,7 @@ class Admin::UserOrdersController < Admin::BaseController
     @order = Order.find(params[:order_id])
   end
 
-  def update
+  def cancel
     order = Order.where(id: params[:order_id], user_id: params[:user_id]).first
     order.update(status: 'Cancelled')
     order.item_orders.each do |item_order|
