@@ -125,7 +125,7 @@ describe Merchant, type: :model do
       order_2.item_orders.create!(item: tire, price: tire.price, quantity: 2)
 
       total_quantity = @meg.specific_orders.map(&:order_total_quantity).sort.reverse
-      subtotal = @meg.specific_orders.map(&:order_total_cost)
+      subtotal = @meg.specific_orders.map(&:order_total_cost).sort.reverse
 
       expect(total_quantity).to eq([10, 9])
       expect(subtotal).to eq([400.0, 360.0])
